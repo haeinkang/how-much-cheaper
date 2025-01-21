@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
+import Button from "@mui/material/Button";
 
 function App() {
-
   return (
-    <div>
-      App
+    <div className="body">
+      <Button>Click</Button>
     </div>
   );
 }
