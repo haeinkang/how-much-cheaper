@@ -6,13 +6,13 @@ import axios from "axios";
 
 function App() {
   useEffect(() => {
-    // getProducts();
+    getProducts();
     getExchange();
   }, []);
 
   const getExchange = async () => {
     try {
-      const response = await axios.get("/site/program/financial/exchangeJSON", {
+      const response = await axios.get("/exchange", {
         params: {
           authkey: "ym573D4yW5quZUu9QhX1ZUrreg6vIm6V",
           data: "AP01",
