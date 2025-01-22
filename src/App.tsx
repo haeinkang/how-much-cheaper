@@ -1,23 +1,40 @@
 import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
-import { getProducts } from "./services/productService";
+import { fetchProducts } from "./services/productService";
+import { fetchExchange } from "./services/exchangeService";
 import axios from "axios";
 
 function App() {
   useEffect(() => {
-    fetchUser();
+    // getProducts();
+    getExchange();
   }, []);
 
-  const fetchUser = async () => {
+  const getExchange = async () => {
     try {
-      const response = await getProducts();
+      const response = await axios.get("/site/program/financial/exchangeJSON", {
+        params: {
+          authkey: "ym573D4yW5quZUu9QhX1ZUrreg6vIm6V",
+          data: "AP01",
+        },
+        timeout: 10000,
+      });
       console.log(response);
     } catch (error) {
       console.error("Error fetching user:", error);
     }
   };
 
-  return <div className="body"></div>;
+  const getProducts = async () => {
+    try {
+      const response = await fetchProducts();
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  return <div className="body">ddd</div>;
 }
 
 export default App;
