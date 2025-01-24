@@ -1,3 +1,3 @@
-import axiosInstance from "../api/axiosInstance";
+import axios from "axios";
 
-export const fetchProducts = () => axiosInstance.get("/api/products");
+export const fetchProducts = () => axios.get("/api/products");
