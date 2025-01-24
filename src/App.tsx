@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchProducts } from "./services/productService";
+import { fetchProducts } from "./services/apiServices";
 import { fetchExchange } from "./services/exchangeService";
 
 function App() {

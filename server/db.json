@@ -1,10 +1,200 @@
 {
+  "brands": [
+    {
+      "id": "0",
+      "brandName": "Gucci"
+    },
+    {
+      "id": "1",
+      "brandName": "Burberry"
+    },
+    {
+      "id": "2",
+      "brandName": "Celine"
+    },
+    {
+      "id": "3",
+      "brandName": "Bottega Veneta"
+    },
+    {
+      "id": "4",
+      "brandName": "Louis Vuitton"
+    },
+    {
+      "id": "5",
+      "brandName": "Dior"
+    },
+    {
+      "id": "6",
+      "brandName": "Loewe"
+    }
+  ],
+  "categories": [
+    {
+      "id": "0",
+      "name": "아우터",
+      "subcategories": ["코트", "재킷", "패딩"]
+    },
+    {
+      "id": "1",
+      "name": "상의",
+      "subcategories": ["니트", "블라우스", "티셔츠", "셔츠", "스웨트셔츠"]
+    },
+    {
+      "id": "2",
+      "name": "하의",
+      "subcategories": ["팬츠", "스커트"]
+    },
+    {
+      "id": "3",
+      "name": "원피스",
+      "subcategories": ["미니 원피스", "미디 원피스", "맥시 원피스", "점프수트"]
+    },
+    {
+      "id": "4",
+      "name": "슈즈",
+      "subcategories": ["스니커즈", "힐", "부츠", "샌들", "플랫슈즈"]
+    },
+    {
+      "id": "5",
+      "name": "가방",
+      "subcategories": ["토트백", "숄더백", "크로스백", "백팩", "클러치"]
+    },
+    {
+      "id": "6",
+      "name": "악세서리",
+      "subcategories": ["지갑", "머플러", "모자", "벨트", "장갑"]
+    }
+  ],
+  "subCategories": [
+    {
+      "id": "0",
+      "name": "코트",
+      "parentCategoryId": "0"
+    },
+    {
+      "id": "1",
+      "name": "재킷",
+      "parentCategoryId": "0"
+    },
+    {
+      "id": "2",
+      "name": "패딩",
+      "parentCategoryId": "0"
+    },
+    {
+      "id": "3",
+      "name": "니트",
+      "parentCategoryId": "1"
+    },
+    {
+      "id": "4",
+      "name": "블라우스",
+      "parentCategoryId": "1"
+    },
+    {
+      "id": "5",
+      "name": "티셔츠",
+      "parentCategoryId": "1"
+    },
+    {
+      "id": "6",
+      "name": "셔츠",
+      "parentCategoryId": "1"
+    },
+    {
+      "id": "7",
+      "name": "스웨트셔츠",
+      "parentCategoryId": "1"
+    },
+    {
+      "id": "8",
+      "name": "팬츠",
+      "parentCategoryId": "2"
+    },
+    {
+      "id": "9",
+      "name": "스커트",
+      "parentCategoryId": "2"
+    },
+    {
+      "id": "10",
+      "name": "미니 원피스",
+      "parentCategoryId": "3"
+    },
+    {
+      "id": "11",
+      "name": "미디 원피스",
+      "parentCategoryId": "3"
+    },
+    {
+      "id": "12",
+      "name": "맥시 원피스",
+      "parentCategoryId": "3"
+    },
+    {
+      "id": "14",
+      "name": "스니커즈",
+      "parentCategoryId": "4"
+    },
+    {
+      "id": "15",
+      "name": "힐",
+      "parentCategoryId": "4"
+    },
+    {
+      "id": "16",
+      "name": "부츠",
+      "parentCategoryId": "4"
+    },
+    {
+      "id": "17",
+      "name": "샌들",
+      "parentCategoryId": "4"
+    },
+    {
+      "id": "18",
+      "name": "플랫슈즈",
+      "parentCategoryId": "4"
+    },
+    {
+      "id": "19",
+      "name": "토트백",
+      "parentCategoryId": "5"
+    },
+    {
+      "id": "20",
+      "name": "숄더백",
+      "parentCategoryId": "5"
+    },
+    {
+      "id": "21",
+      "name": "크로스백",
+      "parentCategoryId": "5"
+    },
+    {
+      "id": "24",
+      "name": "지갑",
+      "parentCategoryId": "6"
+    },
+    {
+      "id": "25",
+      "name": "머플러",
+      "parentCategoryId": "6"
+    },
+    {
+      "id": "26",
+      "name": "모자",
+      "parentCategoryId": "6"
+    }
+  ],
   "products": [
     {
       "id": "0",
-      "brand": "Gucci",
+      "brandName": "Gucci",
       "product_name": "[구찌 홀스빗 1955] 카드 케이스 지갑",
-      "category": "지갑",
+      "category": "악세서리",
+      "subcategories": "지갑",
       "domestic_price": 800000,
       "prices": [
         {
@@ -42,9 +232,10 @@
     },
     {
       "id": "1",
-      "brand": "Burberry",
+      "brandName": "Burberry",
       "product_name": "롱 캐슬포드 트렌치코트",
-      "category": "의류",
+      "category": "아우터",
+      "subcategories": "코트",
       "domestic_price": 3750000,
       "prices": [
         {
@@ -82,9 +273,10 @@
     },
     {
       "id": "2",
-      "brand": "Celine",
+      "brandName": "Celine",
       "product_name": "미니 베사체 - 트리옹프 캔버스 & 카프스킨",
       "category": "가방",
+      "subcategories": "크로스백",
       "domestic_price": 1850000,
       "prices": [
         {
@@ -116,9 +308,10 @@
     },
     {
       "id": "3",
-      "brand": "celine",
+      "brandName": "celine",
       "product_name": "클래식 트리옹프백 - 샤이니 카프스킨",
       "category": "가방",
+      "subcategories": "크로스백",
       "domestic_price": 5500000,
       "prices": [
         {
@@ -156,9 +349,10 @@
     },
     {
       "id": "4",
-      "brand": "Celine",
+      "brandName": "Celine",
       "product_name": "미디엄 아바 트리옹프백 - 트리옹프 캔버스 & 카프스킨",
       "category": "가방",
+      "subcategories": "크로스백",
       "domestic_price": 3200000,
       "prices": [
         {
@@ -196,9 +390,10 @@
     },
     {
       "id": "5",
-      "brand": "Bottega Veneta",
+      "brandName": "Bottega Veneta",
       "product_name": "홉",
       "category": "가방",
+      "subcategories": "숄더백",
       "domestic_price": 4990000,
       "prices": [
         {
@@ -236,9 +431,10 @@
     },
     {
       "id": "6",
-      "brand": "Louis Vuitton",
+      "brandName": "Louis Vuitton",
       "product_name": "쁘띠뜨 노에",
       "category": "가방",
+      "subcategories": "숄더백",
       "domestic_price": 2660000,
       "prices": [
         {
@@ -276,9 +472,10 @@
     },
     {
       "id": "7",
-      "brand": "Gucci",
+      "brandName": "Gucci",
       "product_name": "[재키 1961] 스몰 숄더백",
       "category": "가방",
+      "subcategories": "숄더백",
       "domestic_price": 4800000,
       "prices": [
         {
@@ -316,9 +513,10 @@
     },
     {
       "id": "8",
-      "brand": "Dior",
+      "brandName": "Dior",
       "product_name": "Lady Dior 미니",
       "category": "가방",
+      "subcategories": "토트백",
       "domestic_price": 7500000,
       "prices": [
         {
@@ -356,9 +554,10 @@
     },
     {
       "id": "9",
-      "brand": "Dior",
+      "brandName": "Dior",
       "product_name": "Dior Bobby East-West 백",
       "category": "가방",
+      "subcategories": "크로스백",
       "domestic_price": 4500000,
       "prices": [
         {
@@ -396,9 +595,10 @@
     },
     {
       "id": "10",
-      "brand": "Dior",
+      "brandName": "Dior",
       "product_name": "Saddle Bloom 카드 홀더",
-      "category": "지갑",
+      "category": "악세사리",
+      "subcategories": "지갑",
       "domestic_price": 640000,
       "prices": [
         {
@@ -436,9 +636,10 @@
     },
     {
       "id": "11",
-      "brand": "Loewe",
+      "brandName": "Loewe",
       "product_name": "스몰 해먹 백 - 클래식 카프스킨",
       "category": "가방",
+      "subcategories": "숄더백",
       "domestic_price": 4100000,
       "prices": [
         {
@@ -476,9 +677,10 @@
     },
     {
       "id": "12",
-      "brand": "Loewe",
+      "brandName": "Loewe",
       "product_name": "스카프 - 알파카 & 울 혼방",
       "category": "악세사리",
+      "subcategories": "머플러",
       "domestic_price": 690000,
       "prices": [
         {
