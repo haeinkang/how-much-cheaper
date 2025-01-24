@@ -1,16 +1,25 @@
 import React, { useEffect } from "react";
-import Button from "@mui/material/Button";
-import { getProducts } from "./services/productService";
-import axios from "axios";
+import { fetchProducts } from "./services/productService";
+import { fetchExchange } from "./services/exchangeService";
 
 function App() {
   useEffect(() => {
-    fetchUser();
+    getProducts();
+    getExchange();
   }, []);
 
-  const fetchUser = async () => {
+  const getProducts = async () => {
     try {
-      const response = await getProducts();
+      const response = await fetchProducts();
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  const getExchange = async () => {
+    try {
+      const response = await fetchExchange();
       console.log(response);
     } catch (error) {
       console.error("Error fetching user:", error);
