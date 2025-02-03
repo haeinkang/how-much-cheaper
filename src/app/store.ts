@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-// ... (리듀서 임포트 등)
 import productReducer from "../features/product-slice";
 import exchangeReducer from "../features/exchange-slice";
 
