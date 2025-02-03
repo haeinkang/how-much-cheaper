@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import { fetchProducts } from "./services/apiServices";
-import { fetchExchange } from "./services/exchangeService";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
-import { increment, selectCount } from "./features/product-slice";
+import {
+  fetchExchangeRates,
+  selectExchangeRates,
+} from "./features/exchange-slice";
 
 function App() {
-  const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
+  const exchangeRates = useAppSelector(selectExchangeRates);
 
   useEffect(() => {
+    dispatch(fetchExchangeRates());
     getProducts();
-    getExchange();
-    dispatch(increment());
   }, []);
 
   const getProducts = async () => {
@@ -23,16 +24,7 @@ function App() {
     }
   };
 
-  const getExchange = async () => {
-    try {
-      const response = await fetchExchange();
-      console.log(response);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
-
-  return <div className="body">{count}</div>;
+  return <div className="body">{JSON.stringify(exchangeRates)}</div>;
 }
 
 export default App;
