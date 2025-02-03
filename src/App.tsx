@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { fetchProducts } from "./services/apiServices";
 import { fetchExchange } from "./services/exchangeService";
+import { useAppSelector, useAppDispatch } from "./app/hooks";
+import { increment, selectCount } from "./features/product-slice";
 
 function App() {
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     getProducts();
     getExchange();
+    dispatch(increment());
   }, []);
 
   const getProducts = async () => {
@@ -26,7 +32,7 @@ function App() {
     }
   };
 
-  return <div className="body"></div>;
+  return <div className="body">{count}</div>;
 }
 
 export default App;
