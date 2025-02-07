@@ -1,231 +1,42 @@
 {
-  "brands": [
-    {
-      "id": "0",
-      "brandName": "Gucci"
-    },
-    {
-      "id": "1",
-      "brandName": "Burberry"
-    },
-    {
-      "id": "2",
-      "brandName": "Celine"
-    },
-    {
-      "id": "3",
-      "brandName": "Bottega Veneta"
-    },
-    {
-      "id": "4",
-      "brandName": "Louis Vuitton"
-    },
-    {
-      "id": "5",
-      "brandName": "Dior"
-    },
-    {
-      "id": "6",
-      "brandName": "Loewe"
-    }
-  ],
-  "categories": [
-    {
-      "id": "0",
-      "name": "아우터",
-      "subcategories": ["코트", "재킷", "패딩"]
-    },
-    {
-      "id": "1",
-      "name": "상의",
-      "subcategories": ["니트", "블라우스", "티셔츠", "셔츠", "스웨트셔츠"]
-    },
-    {
-      "id": "2",
-      "name": "하의",
-      "subcategories": ["팬츠", "스커트"]
-    },
-    {
-      "id": "3",
-      "name": "원피스",
-      "subcategories": ["미니 원피스", "미디 원피스", "맥시 원피스", "점프수트"]
-    },
-    {
-      "id": "4",
-      "name": "슈즈",
-      "subcategories": ["스니커즈", "힐", "부츠", "샌들", "플랫슈즈"]
-    },
-    {
-      "id": "5",
-      "name": "가방",
-      "subcategories": ["토트백", "숄더백", "크로스백", "백팩", "클러치"]
-    },
-    {
-      "id": "6",
-      "name": "악세서리",
-      "subcategories": ["지갑", "머플러", "모자", "벨트", "장갑"]
-    }
-  ],
-  "subCategories": [
-    {
-      "id": "0",
-      "name": "코트",
-      "parentCategoryId": "0"
-    },
-    {
-      "id": "1",
-      "name": "재킷",
-      "parentCategoryId": "0"
-    },
-    {
-      "id": "2",
-      "name": "패딩",
-      "parentCategoryId": "0"
-    },
-    {
-      "id": "3",
-      "name": "니트",
-      "parentCategoryId": "1"
-    },
-    {
-      "id": "4",
-      "name": "블라우스",
-      "parentCategoryId": "1"
-    },
-    {
-      "id": "5",
-      "name": "티셔츠",
-      "parentCategoryId": "1"
-    },
-    {
-      "id": "6",
-      "name": "셔츠",
-      "parentCategoryId": "1"
-    },
-    {
-      "id": "7",
-      "name": "스웨트셔츠",
-      "parentCategoryId": "1"
-    },
-    {
-      "id": "8",
-      "name": "팬츠",
-      "parentCategoryId": "2"
-    },
-    {
-      "id": "9",
-      "name": "스커트",
-      "parentCategoryId": "2"
-    },
-    {
-      "id": "10",
-      "name": "미니 원피스",
-      "parentCategoryId": "3"
-    },
-    {
-      "id": "11",
-      "name": "미디 원피스",
-      "parentCategoryId": "3"
-    },
-    {
-      "id": "12",
-      "name": "맥시 원피스",
-      "parentCategoryId": "3"
-    },
-    {
-      "id": "14",
-      "name": "스니커즈",
-      "parentCategoryId": "4"
-    },
-    {
-      "id": "15",
-      "name": "힐",
-      "parentCategoryId": "4"
-    },
-    {
-      "id": "16",
-      "name": "부츠",
-      "parentCategoryId": "4"
-    },
-    {
-      "id": "17",
-      "name": "샌들",
-      "parentCategoryId": "4"
-    },
-    {
-      "id": "18",
-      "name": "플랫슈즈",
-      "parentCategoryId": "4"
-    },
-    {
-      "id": "19",
-      "name": "토트백",
-      "parentCategoryId": "5"
-    },
-    {
-      "id": "20",
-      "name": "숄더백",
-      "parentCategoryId": "5"
-    },
-    {
-      "id": "21",
-      "name": "크로스백",
-      "parentCategoryId": "5"
-    },
-    {
-      "id": "24",
-      "name": "지갑",
-      "parentCategoryId": "6"
-    },
-    {
-      "id": "25",
-      "name": "머플러",
-      "parentCategoryId": "6"
-    },
-    {
-      "id": "26",
-      "name": "모자",
-      "parentCategoryId": "6"
-    }
-  ],
   "products": [
     {
       "id": "0",
       "brandName": "Gucci",
-      "product_name": "[구찌 홀스빗 1955] 카드 케이스 지갑",
-      "category": "악세서리",
-      "subcategories": "지갑",
-      "domestic_price": 800000,
+      "productName": "[구찌 홀스빗 1955] 카드 케이스 지갑",
+      "category": { "id": "6", "name": "악세서리" },
+      "subCategory": { "id": "24", "name": "지갑" },
+      "domesticPrice": 800000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 800000,
+          "localPrice": 800000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 99000,
+          "localPrice": 99000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 5800,
+          "localPrice": 5800,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 430,
+          "localPrice": 430,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 550,
+          "localPrice": 550,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.gucci.com/hk/en_gb/pr/women/wallets-small-accessories-for-women/compact-wallets-for-women/gucci-horsebit-1955-card-case-wallet-p-72684692TCG8563"
@@ -233,40 +44,40 @@
     {
       "id": "1",
       "brandName": "Burberry",
-      "product_name": "롱 캐슬포드 트렌치코트",
-      "category": "아우터",
-      "subcategories": "코트",
-      "domestic_price": 3750000,
+      "productName": "롱 캐슬포드 트렌치코트",
+      "category": { "id": "0", "name": "아우터" },
+      "subCategory": { "id": "0", "name": "코트" },
+      "domesticPrice": 3750000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 3750000,
+          "localPrice": 3750000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 396000,
+          "localPrice": 396000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 23500,
+          "localPrice": 23500,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 2190,
+          "localPrice": 2190,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 2890,
+          "localPrice": 2890,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://kr.burberry.com/long-castleford-trench-coat-p81047111"
@@ -274,34 +85,34 @@
     {
       "id": "2",
       "brandName": "Celine",
-      "product_name": "미니 베사체 - 트리옹프 캔버스 & 카프스킨",
-      "category": "가방",
-      "subcategories": "크로스백",
-      "domestic_price": 1850000,
+      "productName": "미니 베사체 - 트리옹프 캔버스 & 카프스킨",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "21", "name": "크로스백" },
+      "domesticPrice": 1850000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 1850000,
+          "localPrice": 1850000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 192500,
+          "localPrice": 192500,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "France",
-          "local_price": 1100,
+          "localPrice": 1100,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 1350,
+          "localPrice": 1350,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.celine.com/ko-kr/celine-%EC%97%AC%EC%84%B1/%EB%AF%B8%EB%8B%88%EB%B0%B1/%ED%8A%B8%EB%A6%AC%EC%98%B9%ED%94%84-%EC%BA%94%EB%B2%84%EC%8A%A4/%EB%AF%B8%EB%8B%88-%EB%B2%A0%EC%82%AC%EC%B2%B4---%ED%8A%B8%EB%A6%AC%EC%98%B9%ED%94%84-%EC%BA%94%EB%B2%84%EC%8A%A4-and-%EC%B9%B4%ED%94%84%EC%8A%A4%ED%82%A8-196702BZJ.04LU.html"
@@ -309,40 +120,40 @@
     {
       "id": "3",
       "brandName": "celine",
-      "product_name": "클래식 트리옹프백 - 샤이니 카프스킨",
-      "category": "가방",
-      "subcategories": "크로스백",
-      "domestic_price": 5500000,
+      "productName": "클래식 트리옹프백 - 샤이니 카프스킨",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "21", "name": "크로스백" },
+      "domesticPrice": 5500000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 5500000,
+          "localPrice": 5500000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 605000,
+          "localPrice": 605000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 32000,
+          "localPrice": 32000,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 3500,
+          "localPrice": 3500,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 4150,
+          "localPrice": 4150,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.celine.com/ko-kr/celine-%EC%97%AC%EC%84%B1/%ED%95%B8%EB%93%9C%EB%B0%B1/%ED%8A%B8%EB%A6%AC%EC%98%B9%ED%94%84/%ED%81%B4%EB%9E%98%EC%8B%9D-%ED%8A%B8%EB%A6%AC%EC%98%B9%ED%94%84%EB%B0%B1---%EC%83%A4%EC%9D%B4%EB%8B%88-%EC%B9%B4%ED%94%84%EC%8A%A4%ED%82%A8-187363BF4.38NO.html?nav=A003-VIEW-ALL"
@@ -350,40 +161,40 @@
     {
       "id": "4",
       "brandName": "Celine",
-      "product_name": "미디엄 아바 트리옹프백 - 트리옹프 캔버스 & 카프스킨",
-      "category": "가방",
-      "subcategories": "크로스백",
-      "domestic_price": 3200000,
+      "productName": "미디엄 아바 트리옹프백 - 트리옹프 캔버스 & 카프스킨",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "21", "name": "크로스백" },
+      "domesticPrice": 3200000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 3200000,
+          "localPrice": 3200000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 308000,
+          "localPrice": 308000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 18000,
+          "localPrice": 18000,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 1750,
+          "localPrice": 1750,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 2250,
+          "localPrice": 2250,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.celine.com/en-us/celine-shop-women/handbags/more-lines/ava/medium-ava-triomphe-bag-in-triomphe-canvas-and-calfskin-114492BZJ.04LU.html?redirect=true"
@@ -391,40 +202,40 @@
     {
       "id": "5",
       "brandName": "Bottega Veneta",
-      "product_name": "홉",
-      "category": "가방",
-      "subcategories": "숄더백",
-      "domestic_price": 4990000,
+      "productName": "홉",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "20", "name": "숄더백" },
+      "domesticPrice": 4990000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 4990000,
+          "localPrice": 4990000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 572000,
+          "localPrice": 572000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 29900,
+          "localPrice": 29900,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 3200,
+          "localPrice": 3200,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 3900,
+          "localPrice": 3900,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.bottegaveneta.com/en-kr/hop-lunar-796262V1QE31441.html?dwvar_796262V1QE31441_color=1441"
@@ -432,40 +243,40 @@
     {
       "id": "6",
       "brandName": "Louis Vuitton",
-      "product_name": "쁘띠뜨 노에",
-      "category": "가방",
-      "subcategories": "숄더백",
-      "domestic_price": 2660000,
+      "productName": "쁘띠뜨 노에",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "20", "name": "숄더백" },
+      "domesticPrice": 2660000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 2660000,
+          "localPrice": 2660000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 299200,
+          "localPrice": 299200,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 16500,
+          "localPrice": 16500,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 1650,
+          "localPrice": 1650,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 1780,
+          "localPrice": 1780,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://kr.louisvuitton.com/kor-kr/products/petit-noe-monogram-nvprod5320005v/M46984"
@@ -473,40 +284,40 @@
     {
       "id": "7",
       "brandName": "Gucci",
-      "product_name": "[재키 1961] 스몰 숄더백",
-      "category": "가방",
-      "subcategories": "숄더백",
-      "domestic_price": 4800000,
+      "productName": "[재키 1961] 스몰 숄더백",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "20", "name": "숄더백" },
+      "domesticPrice": 4800000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 2660000,
+          "localPrice": 2660000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 539000,
+          "localPrice": 539000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 29000,
+          "localPrice": 29000,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 3200,
+          "localPrice": 3200,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 3800,
+          "localPrice": 3800,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.gucci.com/hk/en_gb/pr/women/handbags/shoulder-bags-for-women/half-moon-bags-for-women/gucci-jackie-1961-small-shoulder-bag-p-810232AADDX6449"
@@ -514,40 +325,40 @@
     {
       "id": "8",
       "brandName": "Dior",
-      "product_name": "Lady Dior 미니",
-      "category": "가방",
-      "subcategories": "토트백",
-      "domestic_price": 7500000,
+      "productName": "Lady Dior 미니",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "19", "name": "토트백" },
+      "domesticPrice": 7500000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 7500000,
+          "localPrice": 7500000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 850000,
+          "localPrice": 850000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 45000,
+          "localPrice": 45000,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 4700,
+          "localPrice": 4700,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 5500,
+          "localPrice": 5500,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.dior.com/en_us/fashion/products/M0505ONGE_M413"
@@ -555,40 +366,40 @@
     {
       "id": "9",
       "brandName": "Dior",
-      "product_name": "Dior Bobby East-West 백",
-      "category": "가방",
-      "subcategories": "크로스백",
-      "domestic_price": 4500000,
+      "productName": "Dior Bobby East-West 백",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "21", "name": "크로스백" },
+      "domesticPrice": 4500000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 4500000,
+          "localPrice": 4500000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 490000,
+          "localPrice": 490000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 26000,
+          "localPrice": 26000,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 2900,
+          "localPrice": 2900,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 3350,
+          "localPrice": 3350,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.dior.com/ko_kr/fashion/products/M9335UTZQ_M928"
@@ -596,40 +407,40 @@
     {
       "id": "10",
       "brandName": "Dior",
-      "product_name": "Saddle Bloom 카드 홀더",
-      "category": "악세사리",
-      "subcategories": "지갑",
-      "domestic_price": 640000,
+      "productName": "Saddle Bloom 카드 홀더",
+      "category": { "id": "6", "name": "악세서리" },
+      "subCategory": { "id": "24", "name": "지갑" },
+      "domesticPrice": 640000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 640000,
+          "localPrice": 640000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 68000,
+          "localPrice": 68000,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 3950,
+          "localPrice": 3950,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 410,
+          "localPrice": 410,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 500,
+          "localPrice": 500,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.dior.com/en_us/fashion/products/S5611CTZQ_M928"
@@ -637,40 +448,40 @@
     {
       "id": "11",
       "brandName": "Loewe",
-      "product_name": "스몰 해먹 백 - 클래식 카프스킨",
-      "category": "가방",
-      "subcategories": "숄더백",
-      "domestic_price": 4100000,
+      "productName": "스몰 해먹 백 - 클래식 카프스킨",
+      "category": { "id": "5", "name": "가방" },
+      "subCategory": { "id": "20", "name": "숄더백" },
+      "domesticPrice": 4100000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 4100000,
+          "localPrice": 4100000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 421300,
+          "localPrice": 421300,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 24900,
+          "localPrice": 24900,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 2500,
+          "localPrice": 2500,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 3250,
+          "localPrice": 3250,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.loewe.com/usa/en/women/bags/hammock/small-hammock-bag-in-classic-calfskin/387.30.S35-2530.html"
@@ -678,40 +489,40 @@
     {
       "id": "12",
       "brandName": "Loewe",
-      "product_name": "스카프 - 알파카 & 울 혼방",
-      "category": "악세사리",
-      "subcategories": "머플러",
-      "domestic_price": 690000,
+      "productName": "스카프 - 알파카 & 울 혼방",
+      "category": { "id": "6", "name": "악세서리" },
+      "subCategory": { "id": "25", "name": "머플러" },
+      "domesticPrice": 690000,
       "prices": [
         {
           "country": "Korea",
-          "local_price": 690000,
+          "localPrice": 690000,
           "currency": "KRW",
-          "currency_symbol": "₩"
+          "currencySymbol": "₩"
         },
         {
           "country": "Japan",
-          "local_price": 68200,
+          "localPrice": 68200,
           "currency": "JPY",
-          "currency_symbol": "¥"
+          "currencySymbol": "¥"
         },
         {
           "country": "Hong Kong",
-          "local_price": 4250,
+          "localPrice": 4250,
           "currency": "HKD",
-          "currency_symbol": "HK$"
+          "currencySymbol": "HK$"
         },
         {
           "country": "France",
-          "local_price": 390,
+          "localPrice": 390,
           "currency": "EUR",
-          "currency_symbol": "€"
+          "currencySymbol": "€"
         },
         {
           "country": "USA",
-          "local_price": 550,
+          "localPrice": 550,
           "currency": "USD",
-          "currency_symbol": "$"
+          "currencySymbol": "$"
         }
       ],
       "url": "https://www.loewe.com/usa/en/women/accessories/scarves-shawls/scarf-in-alpaca-and-wool-blend/F655SS1X02-3429.html"
