@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { fetchProducts } from "./services/apiServices";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 import {
   fetchExchangeRates,
   selectExchangeRates,
 } from "./features/exchange-slice";
+import { fetchProducts } from "./features/product-slice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -12,17 +12,8 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchExchangeRates());
-    getProducts();
+    dispatch(fetchProducts());
   }, []);
-
-  const getProducts = async () => {
-    try {
-      const response = await fetchProducts();
-      console.log(response);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
 
   return <div className="body">{JSON.stringify(exchangeRates)}</div>;
 }

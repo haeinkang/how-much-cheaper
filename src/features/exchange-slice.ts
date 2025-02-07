@@ -8,9 +8,16 @@ import axios from "axios";
 export const fetchExchangeRates = createAsyncThunk<
   ExchangeResponse[],
   void,
-  { rejectValue: string }
->("exchange/fetchExchangeRates", async (_, { rejectWithValue }) => {
+  { state: RootState; rejectValue: string }
+>("exchange/fetchExchangeRates", async (_, { getState, rejectWithValue }) => {
   try {
+    const state: RootState = getState();
+
+    // 이미 데이터가 있으면 API 요청 생략 (캐싱 효과)
+    if (state.exchange.exchangeRates.length > 0) {
+      return state.exchange.exchangeRates;
+    }
+
     const response = await axios.get<ExchangeResponse[]>(
       "/openapi/exchangeJSON", // 실제 API URL로 변경
       {
