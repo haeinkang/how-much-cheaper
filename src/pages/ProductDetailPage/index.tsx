@@ -4,7 +4,7 @@ const ProductDetailPage = () => {
   const { id } = useParams<{ id: string }>();
 
   return (
-    <div className="content">
+    <div>
       <h1>{id} Product Detail</h1>
     </div>
   );
