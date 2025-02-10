@@ -10,7 +10,7 @@ const Layout = () => {
       className={`grid-container ${showSidebar ? "has-sidebar" : "no-sidebar"}`}
     >
       <div className="header">header</div>
-      <div className="exchange-info">exchange-info</div>
+      <div className="exchange-section">exchange section</div>
       {showSidebar && <div className="sidebar">sidebar</div>}
       <div className="content">
         <Outlet />

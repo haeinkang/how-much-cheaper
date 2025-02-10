@@ -11,7 +11,7 @@
   grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
     "header header"
-    "exchange-info exchange-info"
+    "exchange-section exchange-section"
     "sidebar content"
     "footer footer";
 }
@@ -24,7 +24,7 @@
   grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
     "header"
-    "exchange-info"
+    "exchange-section"
     "content"
     "footer";
 }
@@ -35,7 +35,7 @@
 }
 
 .exchange-info {
-  grid-area: exchange-info;
+  grid-area: exchange-section;
   border: solid red;
 }
 
@@ -59,7 +59,7 @@
     grid-template-columns: 1fr; /* 1열 레이아웃 */
     grid-template-areas:
       "header"
-      "exchange-info"
+      "exchange-section"
       "content"
       "sidebar"
       "footer";
