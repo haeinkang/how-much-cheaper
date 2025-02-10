@@ -3,6 +3,52 @@
 @import "@fontsource/roboto/500.css";
 @import "@fontsource/roboto/700.css";
 
-.body {
-  color: red;
+.grid-container {
+  border: solid;
+  height: 100vh; /* 전체 화면 높이 사용 */
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "exchange-info exchange-info"
+    "sidebar content"
+    "footer footer";
+}
+
+.header {
+  grid-area: header;
+  border: solid plum;
+}
+
+.exchange-info {
+  grid-area: exchange-info;
+  border: solid red;
+}
+
+.content {
+  grid-area: content;
+  border: solid orange;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  border: solid green;
+}
+
+.footer {
+  grid-area: footer;
+  border: solid blue;
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* 1열 레이아웃 */
+    grid-template-areas:
+      "header"
+      "exchange-info"
+      "content"
+      "sidebar"
+      "footer";
+  }
 }

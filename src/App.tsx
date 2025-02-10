@@ -5,12 +5,6 @@ import {
   selectExchangeRates,
 } from "./features/exchange-slice";
 import { fetchProducts } from "./features/product-slice";
-import thumbnail0JPG from "./assets/images/thumbnails/thumbnail-0.jpg";
-import thumbnail2JPG from "./assets/images/thumbnails/thumbnail-2.jpg";
-import thumbnail3JPG from "./assets/images/thumbnails/thumbnail-3.jpg";
-import thumbnail0Webp from "./assets/images/thumbnails/_thumbnail-0.webp";
-import thumbnail2Webp from "./assets/images/thumbnails/_thumbnail-2.webp";
-import thumbnail3Webp from "./assets/images/thumbnails/_thumbnail-3.webp";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -22,11 +16,14 @@ function App() {
   }, []);
 
   return (
-    <div className="body">
-      <picture>
-        <source width={300} srcSet={thumbnail0Webp} type="image/webp" />
-        <img src={thumbnail0JPG} alt="" />
-      </picture>
+    <div className="grid-container">
+      <div className="header">header</div>
+      <div className="exchange-info">exchange-info</div>
+      <div className="content">
+        <h2>메인 컨텐츠</h2>
+      </div>
+      <div className="sidebar">sidebar</div>
+      <footer className="footer">footer</footer>
     </div>
   );
 }
