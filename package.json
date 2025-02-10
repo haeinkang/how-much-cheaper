@@ -9,17 +9,10 @@
     "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0",
     "@mui/styled-engine-sc": "^6.4.0",
-    "@reduxjs/toolkit": "^2.5.0",
-    "@types/react-redux": "^7.1.34",
-    "axios": "^1.7.9",
     "cra-template-typescript": "1.2.0",
-    "http-proxy-middleware": "^3.0.3",
-    "json-server": "^1.0.0-beta.3",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.1.3",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.14",
     "web-vitals": "^2.1.4"
@@ -48,7 +41,6 @@
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "cra-bundle-analyzer": "^0.1.1",
     "prettier": "^3.4.2",
     "typescript": "^4.9.5"
   }
