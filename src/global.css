@@ -3,7 +3,7 @@
 @import "@fontsource/roboto/500.css";
 @import "@fontsource/roboto/700.css";
 
-.grid-container {
+.grid-container.has-sidebar {
   border: solid;
   height: 100vh; /* 전체 화면 높이 사용 */
   display: grid;
@@ -14,6 +14,19 @@
     "exchange-info exchange-info"
     "sidebar content"
     "footer footer";
+}
+
+.grid-container.no-sidebar {
+  border: solid;
+  height: 100vh; /* 전체 화면 높이 사용 */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "exchange-info"
+    "content"
+    "footer";
 }
 
 .header {
