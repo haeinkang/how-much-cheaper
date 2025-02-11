@@ -8,6 +8,7 @@ import Layout from "./Layout";
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const Error404Page = lazy(() => import("./pages/ErrorsPage/Error404"));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/favorites/" element={<FavoritesPage />} />
         </Route>
+        <Route path="*" element={<Error404Page />} />
       </Routes>
     </Suspense>
   );
