@@ -14,7 +14,7 @@ body {
   grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
     "header header"
-    "exchange-section exchange-section"
+    "sidebar exchange-section"
     "sidebar content"
     "footer footer";
 }
@@ -36,7 +36,8 @@ body {
   grid-area: header;
 }
 
-.exchange-info {
+.exchange-section {
+  /* border: solid; */
   grid-area: exchange-section;
 }
 
@@ -59,7 +60,6 @@ body {
       "header"
       "exchange-section"
       "content"
-      "sidebar"
       "footer";
   }
 }

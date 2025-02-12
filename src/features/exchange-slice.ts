@@ -24,6 +24,7 @@ export const fetchExchangeRates = createAsyncThunk<
         params: {
           authkey: process.env.REACT_APP_AUTH_KEY,
           data: "AP01",
+          searchdate: "20250211",
         },
       }
     );
