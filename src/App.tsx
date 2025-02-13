@@ -4,6 +4,8 @@ import { useAppDispatch } from "./app/hooks";
 import { fetchExchangeRates } from "./features/exchange-slice";
 import { fetchProducts } from "./features/product-slice";
 import Layout from "./Layout";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+const theme = createTheme();
 
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
@@ -19,16 +21,18 @@ function App() {
   }, []);
 
   return (
-    <Suspense fallback={<div>로딩중...</div>}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<ProductsPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/favorites/" element={<FavoritesPage />} />
-        </Route>
-        <Route path="*" element={<Error404Page />} />
-      </Routes>
-    </Suspense>
+    <ThemeProvider theme={theme}>
+      <Suspense fallback={<div>로딩중...</div>}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<ProductsPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/favorites/" element={<FavoritesPage />} />
+          </Route>
+          <Route path="*" element={<Error404Page />} />
+        </Routes>
+      </Suspense>
+    </ThemeProvider>
   );
 }
 

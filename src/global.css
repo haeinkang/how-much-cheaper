@@ -6,7 +6,6 @@
 body {
   margin: 0;
 }
-
 .grid-container.has-sidebar {
   height: 100vh; /* 전체 화면 높이 사용 */
   display: grid;
@@ -17,6 +16,16 @@ body {
     "sidebar exchange-section"
     "sidebar content"
     "footer footer";
+}
+@media (max-width: 768px) {
+  .grid-container.has-sidebar {
+    grid-template-columns: 1fr; /* 1열 레이아웃 */
+    grid-template-areas:
+      "header"
+      "exchange-section"
+      "content"
+      "footer";
+  }
 }
 
 .grid-container.no-sidebar {
@@ -39,6 +48,7 @@ body {
 .exchange-section {
   /* border: solid; */
   grid-area: exchange-section;
+  padding: 1rem;
 }
 
 .content {
@@ -51,15 +61,4 @@ body {
 
 .footer {
   grid-area: footer;
-}
-
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr; /* 1열 레이아웃 */
-    grid-template-areas:
-      "header"
-      "exchange-section"
-      "content"
-      "footer";
-  }
 }

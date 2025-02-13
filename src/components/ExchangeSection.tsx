@@ -6,8 +6,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
+import Hidden from "@mui/material/Hidden";
 import { ExchangeResponse } from "../types/exchange";
 import { styled as MuiStyled } from "@mui/material/styles";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const CardContentNoPadding = MuiStyled(CardContent)(`
   &:last-child {
@@ -26,6 +31,10 @@ function ExchangeSection() {
     )
     .value();
 
+  // 화면 폭 768px 이하인지 체크 (모바일)
+  const below1500px = useMediaQuery("(max-width:1500px)");
+  const below768px = useMediaQuery("(max-width:768px)");
+
   // 통화 단위에 따른 국기 이모지 반환
   const getFlag = (cur_unit: string) => {
     switch (cur_unit) {
@@ -38,68 +47,140 @@ function ExchangeSection() {
       case "USD":
         return "🇺🇸";
       default:
-        return "";
+        return "🏳️";
     }
   };
 
   return (
-    <Grid container spacing={2} sx={{ p: 2 }}>
+    <Grid container spacing={2}>
       {filteredRates.map((o: ExchangeResponse) => (
         // xs: 모바일 전체 너비, sm: 작은 화면 6칸(2열), md: 중간 이상 3칸(4열)
-        <Grid size={{ xs: 12, sm: 12, md: 6, lg: 3 }} key={o.cur_unit}>
+        <Grid size={{ xs: 6, sm: 6, md: 3, lg: 3, xl: 3 }} key={o.cur_unit}>
           <Card sx={{ height: "100%" }}>
-            <CardContentNoPadding sx={{ p: 2 }}>
-              <Grid container spacing={1} alignItems="center">
-                <Grid size={6}>
-                  <Grid
-                    display="flex"
-                    flexWrap="nowrap"
-                    alignItems="center"
-                    gap={2}
+            <CardContentNoPadding>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateAreas: `
+                    "flag cur-name deal_bas_r"
+                    "flag compare deal_bas_r"
+                  `,
+                  "@media (max-width: 1500px)": {
+                    gap: "3px 5px",
+                    gridTemplateColumns: "auto 1fr",
+                    gridTemplateAreas: `
+                      "flag cur-name"
+                      "deal_bas_r deal_bas_r"
+                      "compare compare"
+                    `,
+                  },
+                  // "@media (max-width: 768px)": {
+                  //   gap: "5px 5px",
+                  //   gridTemplateColumns: "auto 1fr",
+                  //   gridTemplateAreas: `
+                  //     "flag cur-name"
+                  //     "deal_bas_r deal_bas_r"
+                  //   `,
+                  // },
+                }}
+              >
+                <Box
+                  className="flag"
+                  sx={{
+                    gridArea: "flag",
+                    fontSize: "2rem",
+                    "@media (max-width: 1500px)": {
+                      fontSize: "1.4rem",
+                    },
+                    "@media (max-width: 768px)": {
+                      fontSize: "1rem",
+                    },
+                  }}
+                >
+                  {getFlag(o.cur_unit)}
+                </Box>
+
+                <Grid
+                  className="cur-name"
+                  container
+                  alignItems={"center"}
+                  flexWrap={"nowrap"}
+                  gap={0.8}
+                  sx={{ gridArea: "cur-name" }}
+                >
+                  <Box
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: "1rem",
+                      whiteSpace: "nowrap",
+                    }}
                   >
-                    <Box sx={{ fontSize: "2rem" }}>{getFlag(o.cur_unit)}</Box>
-                    <Box>
-                      <Box sx={{ fontWeight: "bold", fontSize: "1rem" }}>
-                        {o.cur_nm}
-                      </Box>
-                      <Box
-                        sx={{ fontSize: "0.875rem", color: "text.secondary" }}
-                      >
-                        {o.cur_unit}
-                      </Box>
+                    {o.cur_nm}
+                  </Box>
+                  {!below1500px && (
+                    <Box sx={{ fontSize: "0.875rem", color: "text.secondary" }}>
+                      {o.cur_unit}
                     </Box>
-                  </Grid>
+                  )}
                 </Grid>
 
-                <Grid size={6}>
-                  <Grid
-                    display="flex"
-                    flexWrap="nowrap"
-                    alignItems="center"
-                    justifyContent="flex-end"
-                  >
-                    <div
-                      style={{
-                        fontSize: "1.4rem",
-                        fontWeight: 400,
-                        textAlign: "right",
-                        marginRight: ".2rem",
-                      }}
-                    >
-                      {o.deal_bas_r}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "1rem",
-                        fontWeight: 500,
-                        textAlign: "right",
-                      }}
-                    >
-                      원
-                    </div>
-                  </Grid>
+                <Grid
+                  className="compare"
+                  container
+                  alignItems={"center"}
+                  flexWrap={"nowrap"}
+                  sx={{
+                    gridArea: "compare",
+                    "@media (max-width:768px)": {},
+                  }}
+                >
+                  <ArrowDropDownIcon color={"primary"} sx={{ p: 0, m: 0 }} />
+                  <Typography variant="body1" color="primary">
+                    {"7.6(-0.76%)"}
+                  </Typography>
                 </Grid>
-              </Grid>
+
+                <Box
+                  className="deal_bas_r"
+                  sx={{
+                    gridArea: "deal_bas_r",
+                    color: "primary.main",
+                    fontSize: "1.1rem",
+                    fontWeight: 500,
+                    fontStyle: "normal",
+                    mr: 0.3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                    "@media (max-width: 1500px)": {
+                      justifyContent: "flex-start",
+                    },
+                    "@media (max-width: 768px)": {
+                      justifyContent: "flex-start",
+                    },
+                  }}
+                >
+                  <Box
+                    component={"span"}
+                    sx={{
+                      color: "primary.main",
+                      fontSize: "1.5rem",
+                      fontWeight: 600,
+                      fontStyle: "normal",
+                      mr: 0.3,
+                      "@media (max-width: 1500px)": {
+                        fontSize: "1.3rem",
+                      },
+                      "@media (max-width: 768px)": {
+                        fontSize: "1rem",
+                      },
+                    }}
+                  >
+                    {o.deal_bas_r}
+                  </Box>
+                  원
+                </Box>
+              </Box>
             </CardContentNoPadding>
           </Card>
         </Grid>
