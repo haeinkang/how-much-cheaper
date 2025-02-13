@@ -62,8 +62,10 @@ function ExchangeSection() {
                     "flag cur-name deal_bas_r"
                     "flag compare deal_bas_r"
                   `,
+                  gridTemplateColumns: "auto 1fr",
+                  gap: "0px 15px",
                   "@media (max-width: 1500px)": {
-                    gap: "3px 5px",
+                    gap: "0px 5px",
                     gridTemplateColumns: "auto 1fr",
                     gridTemplateAreas: `
                       "flag cur-name"
@@ -141,6 +143,7 @@ function ExchangeSection() {
                     "@media (max-width: 1500px)": {
                       justifyContent: "flex-start",
                       fontSize: "1rem",
+                      mt: 1,
                     },
                   }}
                 >
