@@ -31,9 +31,7 @@ function ExchangeSection() {
     )
     .value();
 
-  // 화면 폭 768px 이하인지 체크 (모바일)
   const below1500px = useMediaQuery("(max-width:1500px)");
-  const below768px = useMediaQuery("(max-width:768px)");
 
   // 통화 단위에 따른 국기 이모지 반환
   const getFlag = (cur_unit: string) => {
@@ -43,7 +41,7 @@ function ExchangeSection() {
       case "HKD":
         return "🇭🇰";
       case "EUR":
-        return "🇫🇷";
+        return "🇪🇺";
       case "USD":
         return "🇺🇸";
       default:
@@ -54,7 +52,6 @@ function ExchangeSection() {
   return (
     <Grid container spacing={2}>
       {filteredRates.map((o: ExchangeResponse) => (
-        // xs: 모바일 전체 너비, sm: 작은 화면 6칸(2열), md: 중간 이상 3칸(4열)
         <Grid size={{ xs: 6, sm: 6, md: 3, lg: 3, xl: 3 }} key={o.cur_unit}>
           <Card sx={{ height: "100%" }}>
             <CardContentNoPadding>
@@ -74,14 +71,6 @@ function ExchangeSection() {
                       "compare compare"
                     `,
                   },
-                  // "@media (max-width: 768px)": {
-                  //   gap: "5px 5px",
-                  //   gridTemplateColumns: "auto 1fr",
-                  //   gridTemplateAreas: `
-                  //     "flag cur-name"
-                  //     "deal_bas_r deal_bas_r"
-                  //   `,
-                  // },
                 }}
               >
                 <Box
@@ -129,10 +118,7 @@ function ExchangeSection() {
                   container
                   alignItems={"center"}
                   flexWrap={"nowrap"}
-                  sx={{
-                    gridArea: "compare",
-                    "@media (max-width:768px)": {},
-                  }}
+                  sx={{ gridArea: "compare" }}
                 >
                   <ArrowDropDownIcon color={"primary"} sx={{ p: 0, m: 0 }} />
                   <Typography variant="body1" color="primary">
@@ -154,9 +140,7 @@ function ExchangeSection() {
                     justifyContent: "flex-end",
                     "@media (max-width: 1500px)": {
                       justifyContent: "flex-start",
-                    },
-                    "@media (max-width: 768px)": {
-                      justifyContent: "flex-start",
+                      fontSize: "1rem",
                     },
                   }}
                 >
@@ -170,9 +154,6 @@ function ExchangeSection() {
                       mr: 0.3,
                       "@media (max-width: 1500px)": {
                         fontSize: "1.3rem",
-                      },
-                      "@media (max-width: 768px)": {
-                        fontSize: "1rem",
                       },
                     }}
                   >
