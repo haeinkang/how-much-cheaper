@@ -5,7 +5,7 @@ import { ExchangeData, ExchangeDiff } from "../types/exchange";
 import axios from "axios";
 import dateFormat from "dateformat";
 import map from "lodash/map";
-import keyBy from "lodash/keyBy";
+import find from "lodash/find";
 // 타입 정의: 오늘과 어제 구분
 export type ExchangeDataType = "today" | "yesterday";
 
@@ -13,11 +13,12 @@ export type ExchangeDataType = "today" | "yesterday";
 const calculateDiff = (
   todayExchanges: ExchangeData[],
   yesterdayExchanges: ExchangeData[]
-): ExchangeDiff[] => {
-  const yesterdayMap = keyBy(yesterdayExchanges, "cur_unit");
-
-  return map(todayExchanges, (today): ExchangeDiff => {
-    const yesterday = yesterdayMap[today.cur_unit];
+): ExchangeDiff[] =>
+  map(todayExchanges, (today): ExchangeDiff => {
+    const yesterday = find(
+      yesterdayExchanges,
+      (o) => o.cur_unit === today.cur_unit
+    );
 
     // 어제 데이터가 없는 경우엔 0으로 처리
     const yesterdayValue = yesterday
@@ -35,7 +36,6 @@ const calculateDiff = (
       percentDiff: percentDiff.toFixed(1),
     };
   });
-};
 
 // 비동기 thunk 액션 정의: 환율 API 호출
 export const fetchExchangeRates = createAsyncThunk<
@@ -139,5 +139,7 @@ export const selectTodayExchangeRates = (state: RootState) =>
   state.exchange.todayExchangeRates;
 export const selectYesterdayExchangeRates = (state: RootState) =>
   state.exchange.yesterdayExchangeRates;
+export const selectDiffExchangeRates = (state: RootState) =>
+  state.exchange.diffExchangeRates;
 
 export default exchangeSlice.reducer;
