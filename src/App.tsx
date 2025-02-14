@@ -16,7 +16,20 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchExchangeRates());
+    const now = new Date();
+    const today = new Date();
+    const yesterday = new Date();
+
+    // 현재 시간이 11시 이전인지 확인
+    if (now.getHours() < 11) {
+      today.setDate(today.getDate() - 1); // 오늘 날짜를 어제로 변경
+    }
+    dispatch(fetchExchangeRates({ date: today, type: "today" }));
+
+    // 어제 날짜를 계산 (오늘이 변경되었으면 이틀 전이 됨)
+    yesterday.setDate(today.getDate() - 1);
+    dispatch(fetchExchangeRates({ date: yesterday, type: "yesterday" }));
+
     dispatch(fetchProducts());
   }, []);
 

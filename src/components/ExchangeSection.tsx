@@ -1,6 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectExchangeRates } from "../features/exchange-slice"; // 파일 경로에 맞게 수정
+import {
+  selectTodayExchangeRates,
+  selectYesterdayExchangeRates,
+} from "../features/exchange-slice"; // 파일 경로에 맞게 수정
 import _ from "lodash";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -22,10 +25,11 @@ const CardContentNoPadding = MuiStyled(CardContent)(`
 
 function ExchangeSection() {
   // Redux 스토어에서 환율 데이터 가져오기
-  const exchangeRates = useSelector(selectExchangeRates);
+  const todayExchangeRates = useSelector(selectTodayExchangeRates);
+  const yesterdayExchangeRates = useSelector(selectYesterdayExchangeRates);
 
   // 관심있는 통화만 필터링 (JPY(100), HKD, EUR, USD)
-  const filteredRates = _(exchangeRates)
+  const filteredRates = _(todayExchangeRates)
     .filter((o: ExchangeResponse) =>
       ["JPY(100)", "HKD", "EUR", "USD"].includes(o.cur_unit)
     )
