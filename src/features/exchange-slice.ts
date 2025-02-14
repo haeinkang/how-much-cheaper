@@ -1,22 +1,52 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
-import { ExchangeResponse } from "../types/exchange";
+import { ExchangeData, ExchangeDiff } from "../types/exchange";
 import axios from "axios";
 import dateFormat from "dateformat";
+import map from "lodash/map";
+import keyBy from "lodash/keyBy";
 // 타입 정의: 오늘과 어제 구분
 export type ExchangeDataType = "today" | "yesterday";
 
+/** 어제 환율과 비교 */
+const calculateDiff = (
+  todayExchanges: ExchangeData[],
+  yesterdayExchanges: ExchangeData[]
+): ExchangeDiff[] => {
+  const yesterdayMap = keyBy(yesterdayExchanges, "cur_unit");
+
+  return map(todayExchanges, (today): ExchangeDiff => {
+    const yesterday = yesterdayMap[today.cur_unit];
+
+    // 어제 데이터가 없는 경우엔 0으로 처리
+    const yesterdayValue = yesterday
+      ? parseFloat(yesterday.deal_bas_r.replace(/,/g, ""))
+      : 0;
+    const todayValue = parseFloat(today.deal_bas_r.replace(/,/g, ""));
+
+    const diff = todayValue - yesterdayValue;
+    const percentDiff =
+      yesterdayValue !== 0 ? (diff / yesterdayValue) * 100 : 0;
+
+    return {
+      cur_unit: today.cur_unit,
+      diff: diff.toFixed(1),
+      percentDiff: percentDiff.toFixed(1),
+    };
+  });
+};
+
 // 비동기 thunk 액션 정의: 환율 API 호출
 export const fetchExchangeRates = createAsyncThunk<
-  { rates: ExchangeResponse[]; type: ExchangeDataType },
+  { rates: ExchangeData[]; type: ExchangeDataType },
   { date: Date; type: ExchangeDataType },
   { state: RootState; rejectValue: string }
 >(
   "exchange/fetchExchangeRates",
   async ({ date, type }, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ExchangeResponse[]>(
+      const { data } = await axios.get<ExchangeData[]>(
         "/openapi/exchangeJSON",
         {
           params: {
@@ -26,7 +56,14 @@ export const fetchExchangeRates = createAsyncThunk<
           },
         }
       );
-      return { rates: response.data, type };
+      const rates = data.filter(
+        (o) =>
+          o.cur_unit === "JPY(100)" ||
+          o.cur_unit === "HKD" ||
+          o.cur_unit === "EUR" ||
+          o.cur_unit === "USD"
+      );
+      return { rates, type };
     } catch (error: unknown) {
       // 에러 응답이 있을 경우 메시지 반환, 없으면 기본 메시지 사용
       return rejectWithValue(
@@ -40,16 +77,22 @@ export const fetchExchangeRates = createAsyncThunk<
 // 슬라이스 상태 타입 정의
 interface ExchangeState {
   loaded: boolean;
-  todayExchangeRates: ExchangeResponse[];
-  yesterdayExchangeRates: ExchangeResponse[];
+  todayLoaded: boolean;
+  yesterdayLoaded: boolean;
+  todayExchangeRates: ExchangeData[];
+  yesterdayExchangeRates: ExchangeData[];
+  diffExchangeRates: ExchangeDiff[];
   error: string | null;
 }
 
 // 초기 상태 정의
 const initialState: ExchangeState = {
   loaded: false,
+  todayLoaded: false,
+  yesterdayLoaded: false,
   todayExchangeRates: [],
   yesterdayExchangeRates: [],
+  diffExchangeRates: [],
   error: null,
 };
 
@@ -65,9 +108,22 @@ export const exchangeSlice = createSlice({
       })
       .addCase(fetchExchangeRates.fulfilled, (state, action) => {
         const { type, rates } = action.payload;
-        state.loaded = true;
-        if (type === "today") state.todayExchangeRates = rates;
-        if (type === "yesterday") state.yesterdayExchangeRates = rates;
+        if (type === "today") {
+          state.todayExchangeRates = rates;
+          state.todayLoaded = true;
+        }
+        if (type === "yesterday") {
+          state.yesterdayExchangeRates = rates;
+          state.yesterdayLoaded = true;
+        }
+
+        // 두 날짜의 데이터가 모두 로드되었을 때 diff 계산
+        if (state.todayLoaded && state.yesterdayLoaded) {
+          state.diffExchangeRates = calculateDiff(
+            state.todayExchangeRates,
+            state.yesterdayExchangeRates
+          );
+        }
       })
       .addCase(fetchExchangeRates.rejected, (state, action) => {
         state.loaded = true;

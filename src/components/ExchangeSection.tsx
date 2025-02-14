@@ -10,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Hidden from "@mui/material/Hidden";
-import { ExchangeResponse } from "../types/exchange";
+import { ExchangeData } from "../types/exchange";
 import { styled as MuiStyled } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -27,13 +27,6 @@ function ExchangeSection() {
   // Redux 스토어에서 환율 데이터 가져오기
   const todayExchangeRates = useSelector(selectTodayExchangeRates);
   const yesterdayExchangeRates = useSelector(selectYesterdayExchangeRates);
-
-  // 관심있는 통화만 필터링 (JPY(100), HKD, EUR, USD)
-  const filteredRates = _(todayExchangeRates)
-    .filter((o: ExchangeResponse) =>
-      ["JPY(100)", "HKD", "EUR", "USD"].includes(o.cur_unit)
-    )
-    .value();
 
   const below1500px = useMediaQuery("(max-width:1500px)");
 
@@ -55,7 +48,7 @@ function ExchangeSection() {
 
   return (
     <Grid container spacing={2}>
-      {filteredRates.map((o: ExchangeResponse) => (
+      {todayExchangeRates.map((o: ExchangeData) => (
         <Grid size={{ xs: 6, sm: 6, md: 3, lg: 3, xl: 3 }} key={o.cur_unit}>
           <Card sx={{ height: "100%" }}>
             <CardContentNoPadding>
