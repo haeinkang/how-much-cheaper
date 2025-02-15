@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
 import { ExchangeData, ExchangeDiff } from "../types/exchange";
@@ -6,6 +10,8 @@ import axios from "axios";
 import dateFormat from "dateformat";
 import map from "lodash/map";
 import find from "lodash/find";
+import mapValues from "lodash/mapValues";
+import keyBy from "lodash/keyBy";
 // 타입 정의: 오늘과 어제 구분
 export type ExchangeDataType = "today" | "yesterday";
 
@@ -142,4 +148,12 @@ export const selectYesterdayExchangeRates = (state: RootState) =>
 export const selectDiffExchangeRates = (state: RootState) =>
   state.exchange.diffExchangeRates;
 
+// 오늘 환율 데이터 배열을 받아서 { [cur_unit]: deal_bas_r } 형태로 변환하는 선택자
+export const selectTodayDealBasRByCurrency = createSelector(
+  [(state: RootState) => state.exchange.todayExchangeRates],
+  (todayRates): Record<string, string> =>
+    mapValues(keyBy(todayRates, "cur_unit"), (exchange: ExchangeData) =>
+      exchange.deal_bas_r.replace(/,/g, "")
+    )
+);
 export default exchangeSlice.reducer;

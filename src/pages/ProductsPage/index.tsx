@@ -6,6 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { selectProducts } from "../../features/product-slice";
+import { useSelector } from "react-redux";
+import { Product, Price } from "../../types/product";
+import flatMap from "lodash/flatMap";
+import find from "lodash/find";
+import { selectTodayDealBasRByCurrency } from "../../features/exchange-slice";
 
 function createData(
   name: string,
@@ -26,35 +32,56 @@ const rows = [
 ];
 
 export default function ProductsPage() {
+  const products = useSelector(selectProducts);
+  const exchange = useSelector(selectTodayDealBasRByCurrency);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>상품</TableCell>
+            <TableCell align="right">한국</TableCell>
+            <TableCell align="right">일본</TableCell>
+            <TableCell align="right">프랑스</TableCell>
+            <TableCell align="right">미국</TableCell>
+            <TableCell align="right">홍콩</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
+          {products.map((row) => {
+            return (
+              <TableRow
+                key={row.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.productName}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.domesticPrice.toLocaleString()}
+                </TableCell>
+
+                {flatMap(row.prices, (o) => {
+                  let priceInKrw = 0;
+                  priceInKrw = parseFloat(exchange[o.cur_unit]) * o.localPrice;
+                  if (o.cur_unit === "JPY(100)") priceInKrw = priceInKrw / 100;
+
+                  return (
+                    <TableCell align="right">
+                      <div>{`${o.localPrice} ${o.currencySymbol}`}</div>
+                      <div>{priceInKrw.toLocaleString()}</div>
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
   );
+}
+function selectTodayDeal_bas_rByCurrency(state: unknown): unknown {
+  throw new Error("Function not implemented.");
 }

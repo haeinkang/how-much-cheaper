@@ -5,6 +5,7 @@ import { fetchExchangeRates } from "./features/exchange-slice";
 import { fetchProducts } from "./features/product-slice";
 import Layout from "./Layout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import dateFormat from "dateformat";
 const theme = createTheme();
 
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
@@ -17,21 +18,36 @@ function App() {
 
   useEffect(() => {
     const now = new Date();
-    const today = new Date();
-    const yesterday = new Date();
+    const effectiveToday = getEffectiveToday(now);
+    const effectiveYesterday = new Date(effectiveToday);
+    effectiveYesterday.setDate(effectiveToday.getDate() - 1);
 
-    // 현재 시간이 11시 이전인지 확인
-    if (now.getHours() < 11) {
-      today.setDate(today.getDate() - 1); // 오늘 날짜를 어제로 변경
-    }
-    dispatch(fetchExchangeRates({ date: today, type: "today" }));
-
-    // 어제 날짜를 계산 (오늘이 변경되었으면 이틀 전이 됨)
-    yesterday.setDate(today.getDate() - 1);
-    dispatch(fetchExchangeRates({ date: yesterday, type: "yesterday" }));
-
+    dispatch(fetchExchangeRates({ date: effectiveToday, type: "today" }));
+    dispatch(
+      fetchExchangeRates({ date: effectiveYesterday, type: "yesterday" })
+    );
     dispatch(fetchProducts());
   }, []);
+
+  /**
+   * 현재 날짜와 시간을 기준으로 실제 환율 조회에 사용할 '오늘' 날짜를 계산하는 함수
+   */
+  function getEffectiveToday(currentDate: Date): Date {
+    // 복사본 생성 (불변성을 위해)
+    const effective = new Date(currentDate);
+    const dayOfWeek = dateFormat(currentDate, "ddd");
+
+    // 주말 조건 우선 처리
+    if (dayOfWeek === "Sat") {
+      effective.setDate(effective.getDate() - 1); // 토요일 -> 금요일
+    } else if (dayOfWeek === "Sun") {
+      effective.setDate(effective.getDate() - 2); // 일요일 -> 금요일
+    } else if (currentDate.getHours() < 11) {
+      // 평일이지만 오전 11시 이전이면 아직 오늘 데이터가 업데이트되지 않았으므로 어제로 간주
+      effective.setDate(effective.getDate() - 1);
+    }
+    return effective;
+  }
 
   return (
     <ThemeProvider theme={theme}>

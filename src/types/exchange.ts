@@ -14,11 +14,8 @@ export type ExchangeData = {
   kftc_bkpr: string; // 서울외국환중개 장부가격
 };
 
-/** 통화코드 */
-export type CurUnit = ExchangeData["cur_unit"];
-
 export type ExchangeDiff = {
-  cur_unit: CurUnit;
+  cur_unit: ExchangeData["cur_unit"];
   diff: string;
   percentDiff: string;
 };
