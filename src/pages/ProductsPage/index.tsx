@@ -14,6 +14,8 @@ import find from "lodash/find";
 import { selectTodayDealBasRByCurrency } from "../../features/exchange-slice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 import _Thumbnail0 from "../../assets/images/thumbnails/_thumbnail-0.webp";
 import _Thumbnail2 from "../../assets/images/thumbnails/_thumbnail-2.webp";
@@ -38,7 +40,6 @@ export default function ProductsPage() {
         <TableHead>
           <TableRow>
             <TableCell>상품</TableCell>
-            <TableCell>한국</TableCell>
             <TableCell>일본</TableCell>
             <TableCell>프랑스</TableCell>
             <TableCell>미국</TableCell>
@@ -76,46 +77,100 @@ export default function ProductsPage() {
                       className="product-info"
                       container
                       alignContent={"center"}
+                      // gap={0.4}
                     >
-                      <Box
+                      <Grid
+                        size={12}
                         sx={{
-                          fontWeight: "bold",
-                          fontSize: "1rem",
+                          fontWeight: 700,
                           whiteSpace: "nowrap",
-                          width: "100%",
                         }}
                       >
                         {row.brandName}
-                      </Box>
-                      <Box sx={{}}>{row.productName}</Box>
+                      </Grid>
+                      <Grid size={12} sx={{}}>
+                        {row.productName}
+                      </Grid>
+                      <Grid
+                        size={12}
+                        container
+                        alignItems={"flex-end"}
+                        gap={0.3}
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "1rem",
+                          whiteSpace: "nowrap",
+                          mt: 0.7,
+                        }}
+                      >
+                        {row.domesticPrice.toLocaleString()}
+                        <Box sx={{ fontSize: "0.9rem" }}>원</Box>
+                      </Grid>
                     </Grid>
                   </Box>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.domesticPrice.toLocaleString()}
                 </TableCell>
 
                 {flatMap(row.prices, (o) => {
                   let priceInKrw = 0;
                   priceInKrw =
-                    parseFloat(exchange[o.cur_unit]) * o.localPrice * 0.9;
+                    parseFloat(exchange[o.cur_unit]) * 0.9 * o.localPrice;
                   if (o.cur_unit === "JPY(100)") priceInKrw = priceInKrw / 100;
 
                   const diff = priceInKrw - row.domesticPrice;
+                  const percentDiff = (diff / row.domesticPrice) * 100;
 
                   return (
                     <TableCell>
-                      <Box
+                      <Grid
+                        container
+                        alignItems={"flex-end"}
+                        gap={0.3}
                         sx={{
                           fontWeight: "500",
                           fontSize: "1rem",
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {priceInKrw.toLocaleString()}
-                      </Box>
-                      <Box>{diff.toLocaleString()}</Box>
-                      {/* <Box>{`${o.localPrice} ${o.currencySymbol}`}</Box> */}
+                        {`${priceInKrw.toLocaleString("ko-KR", {
+                          maximumFractionDigits: 0,
+                        })}`}
+                        <Box sx={{ fontSize: "0.9rem" }}>원</Box>
+                      </Grid>
+                      <Grid container alignItems={"center"} flexWrap={"nowrap"}>
+                        {diff > 0 ? (
+                          <ArrowDropUpIcon
+                            color={"warning"}
+                            sx={{ p: 0, m: 0 }}
+                          />
+                        ) : diff < 0 ? (
+                          <ArrowDropDownIcon
+                            color={"primary"}
+                            sx={{ p: 0, m: 0 }}
+                          />
+                        ) : null}
+
+                        <Typography
+                          variant="body1"
+                          color={
+                            diff > 0
+                              ? "error"
+                              : diff < 0
+                                ? "primary"
+                                : "text.secondary"
+                          }
+                        >
+                          {`${diff
+                            .toLocaleString("ko-KR", {
+                              maximumFractionDigits: 0,
+                            })
+                            .replace("-", "")}(${percentDiff.toLocaleString(
+                            "ko-KR",
+                            {
+                              maximumFractionDigits: 0,
+                            }
+                          )}%)`}
+                        </Typography>
+                      </Grid>
                     </TableCell>
                   );
                 })}
