@@ -93,41 +93,48 @@ export default function ProductsPage() {
 
   return (
     <React.Fragment>
-      <Grid container justifyContent={"flex-end"} gap={2}>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={applyTaxRefund}
-              onChange={() => dispatch(toggleTaxRefund())}
-            />
-          }
-          label={
-            <Grid container alignItems={"center"} gap={0.3}>
-              <Tooltip title="택스리펀드: 해외에서 구매 시, 현지 VAT를 환급받는 제도">
-                <InfoRoundedIcon color="disabled" sx={{ fontSize: "1rem" }} />
-              </Tooltip>
-              <Box>택스리펀드 적용</Box>
-            </Grid>
-          }
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={applyDuty}
-              onChange={() => dispatch(toggleDuty())}
-            />
-          }
-          label={
-            <Grid container alignItems={"center"} gap={0.3}>
-              <Tooltip title="관세: 해외 구매 후 600달러 초과 금액에 대해 부과되는 세금 (자진 신고 시 30% 감면, 최대 20만 원)">
-                <InfoRoundedIcon color="disabled" sx={{ fontSize: "1rem" }} />
-              </Tooltip>
-              <Box>관세 적용</Box>
-            </Grid>
-          }
-          labelPlacement="start"
-        />
+      <Grid container justifyContent={"flex-end"}>
+        <Grid container alignItems={"center"} gap={2}>
+          <Tooltip
+            title={
+              <Typography variant="body2">
+                택스리펀드: 해외에서 구매 시, 현지 VAT를 환급받는 제도
+              </Typography>
+            }
+          >
+            <InfoRoundedIcon color="disabled" sx={{ fontSize: "1.1rem" }} />
+          </Tooltip>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={applyTaxRefund}
+                onChange={() => dispatch(toggleTaxRefund())}
+              />
+            }
+            label={"택스리펀드 적용"}
+          />
+        </Grid>
+        <Grid container alignItems={"center"} gap={2}>
+          <Tooltip
+            title={
+              <Typography variant="body2">
+                관세: 해외 구매 후 600달러 초과 금액에 대해 부과되는 세금 (자진
+                신고 시 30% 감면, 최대 20만 원)
+              </Typography>
+            }
+          >
+            <InfoRoundedIcon color="disabled" sx={{ fontSize: "1.1rem" }} />
+          </Tooltip>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={applyDuty}
+                onChange={() => dispatch(toggleDuty())}
+              />
+            }
+            label={"관세 적용"}
+          />
+        </Grid>
       </Grid>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
