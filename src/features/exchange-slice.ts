@@ -151,9 +151,10 @@ export const selectDiffExchangeRates = (state: RootState) =>
 // 오늘 환율 데이터 배열을 받아서 { [cur_unit]: deal_bas_r } 형태로 변환하는 선택자
 export const selectTodayDealBasRByCurrency = createSelector(
   [(state: RootState) => state.exchange.todayExchangeRates],
-  (todayRates): Record<string, string> =>
+  (todayRates): Record<string, number> =>
     mapValues(keyBy(todayRates, "cur_unit"), (exchange: ExchangeData) =>
-      exchange.deal_bas_r.replace(/,/g, "")
+      parseFloat(exchange.deal_bas_r.replace(/,/g, ""))
     )
 );
+
 export default exchangeSlice.reducer;
