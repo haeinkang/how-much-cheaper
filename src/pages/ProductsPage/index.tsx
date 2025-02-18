@@ -29,6 +29,7 @@ import Tooltip from "@mui/material/Tooltip";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import { RootState } from "../../app/store";
 import useFinalPrice from "../../hooks/useFinalPrice";
+import DiffIndicator from "../../components/DiffIndicator";
 
 // 이미지 썸네일 매핑
 const thumbnails: Record<string, string> = {
@@ -52,8 +53,6 @@ const FinalPriceCell: React.FC<FinalPriceCellProps> = ({
 }) => {
   // 개별 셀 내에서 useFinalPrice hook 호출 (각 컴포넌트는 독립적인 hook 호출 순서를 가짐)
   const { finalPrice, netTax } = useFinalPrice(category, price);
-  const diff = finalPrice - domesticPrice;
-  const percentDiff = (diff / domesticPrice) * 100;
 
   return (
     <TableCell>
@@ -67,19 +66,8 @@ const FinalPriceCell: React.FC<FinalPriceCellProps> = ({
         <Box sx={{ fontSize: "0.9rem" }}>원</Box>
       </Grid>
 
-      <Grid container alignItems={"center"} flexWrap={"nowrap"}>
-        {diff > 0 ? (
-          <ArrowDropUpIcon color={"warning"} sx={{ p: 0, m: 0 }} />
-        ) : diff < 0 ? (
-          <ArrowDropDownIcon color={"primary"} sx={{ p: 0, m: 0 }} />
-        ) : null}
-        <Typography
-          variant="body1"
-          color={diff > 0 ? "error" : diff < 0 ? "primary" : "text.secondary"}
-        >
-          {`${Math.abs(diff).toLocaleString("ko-KR", { maximumFractionDigits: 0 })} (${Math.abs(percentDiff).toLocaleString("ko-KR", { maximumFractionDigits: 0 })}%)`}
-        </Typography>
-      </Grid>
+      {/* <DiffIndicator basePrice={domesticPrice} comparePrice={finalPrice} /> */}
+      <DiffIndicator baseValue={0} compareValue={10} />
     </TableCell>
   );
 };
