@@ -81,7 +81,7 @@ const useFinalPrice = (
   const { applyDuty, applyTaxRefund } = useSelector(
     (state: RootState) => state.products
   );
-  const exchangeRates = useSelector(selectTodayDealBasRByCurrency); // { cur_unit: number }
+  const exchangeRates = useSelector(selectTodayDealBasRByCurrency);
 
   // 1. 외화 가격을 KRW로 변환
   let initialPriceKRW = price.localPrice * (exchangeRates[price.cur_unit] || 1);

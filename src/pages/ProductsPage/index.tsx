@@ -13,11 +13,8 @@ import {
 } from "../../features/product-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { Product, Price, Category, CategoryName } from "../../types/product";
-import { selectTodayDealBasRByCurrency } from "../../features/exchange-slice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import _Thumbnail0 from "../../assets/images/thumbnails/_thumbnail-0.webp";
 import _Thumbnail2 from "../../assets/images/thumbnails/_thumbnail-2.webp";
 import _Thumbnail3 from "../../assets/images/thumbnails/_thumbnail-3.webp";
@@ -65,9 +62,7 @@ const FinalPriceCell: React.FC<FinalPriceCellProps> = ({
         {finalPrice.toLocaleString("ko-KR", { maximumFractionDigits: 0 })}
         <Box sx={{ fontSize: "0.9rem" }}>원</Box>
       </Grid>
-
-      {/* <DiffIndicator basePrice={domesticPrice} comparePrice={finalPrice} /> */}
-      <DiffIndicator baseValue={0} compareValue={10} />
+      <DiffIndicator baseValue={finalPrice} compareValue={domesticPrice} />
     </TableCell>
   );
 };

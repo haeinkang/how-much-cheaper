@@ -18,6 +18,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import find from "lodash/find";
+import DiffIndicator from "./DiffIndicator";
 
 const CardContentNoPadding = MuiStyled(CardContent)(`
   &:last-child {
@@ -28,6 +29,7 @@ const CardContentNoPadding = MuiStyled(CardContent)(`
 function ExchangeSection() {
   // Redux 스토어에서 환율 데이터 가져오기
   const todayExchangeRates = useSelector(selectTodayExchangeRates);
+  const yesterdayExchangeRates = useSelector(selectYesterdayExchangeRates);
   const diffExchangeRates = useSelector(selectDiffExchangeRates);
 
   const below1500px = useMediaQuery("(max-width:1500px)");
@@ -51,11 +53,12 @@ function ExchangeSection() {
   return (
     <Grid container spacing={2}>
       {todayExchangeRates.map((o: ExchangeData) => {
-        const { diff, percentDiff } = find(
-          diffExchangeRates,
-          ({ cur_unit }) => cur_unit === o.cur_unit
-        ) || { diff: "-", percentDiff: "-" };
-
+        const yesterday = yesterdayExchangeRates.find(
+          ({ cur_unit }) => o.cur_unit === cur_unit
+        );
+        const diff = yesterday
+          ? parseFloat(o.deal_bas_r) - parseFloat(yesterday.deal_bas_r)
+          : 0;
         return (
           <Grid size={{ xs: 6, sm: 6, md: 3, lg: 3, xl: 3 }} key={o.cur_unit}>
             <Card sx={{ height: "100%" }}>
@@ -122,7 +125,15 @@ function ExchangeSection() {
                     )}
                   </Grid>
 
-                  <Grid
+                  {yesterday && (
+                    <DiffIndicator
+                      className="compare"
+                      baseValue={parseFloat(o.deal_bas_r)}
+                      compareValue={parseFloat(yesterday.deal_bas_r)}
+                    />
+                  )}
+
+                  {/* <Grid
                     className="compare"
                     container
                     alignItems={"center"}
@@ -150,16 +161,16 @@ function ExchangeSection() {
                     >
                       {`${diff.replace("-", "")}(${percentDiff}%)`}
                     </Typography>
-                  </Grid>
+                  </Grid> */}
 
                   <Box
                     className="deal_bas_r"
                     sx={{
                       gridArea: "deal_bas_r",
                       color:
-                        parseFloat(diff) > 0
+                        diff > 0
                           ? "error.main"
-                          : parseFloat(diff) < 0
+                          : diff < 0
                             ? "primary.main"
                             : "disabled.main",
                       fontSize: "1.1rem",
@@ -180,9 +191,9 @@ function ExchangeSection() {
                       component={"span"}
                       sx={{
                         color:
-                          parseFloat(diff) > 0
+                          diff > 0
                             ? "error.main"
-                            : parseFloat(diff) < 0
+                            : diff < 0
                               ? "primary.main"
                               : "disabled.main",
                         fontSize: "1.5rem",

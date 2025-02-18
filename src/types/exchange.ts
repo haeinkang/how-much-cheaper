@@ -16,8 +16,8 @@ export type ExchangeData = {
 
 export type ExchangeDiff = {
   cur_unit: ExchangeData["cur_unit"];
-  diff: string;
-  percentDiff: string;
+  diff: number;
+  percentDiff: number;
 };
 
 /** 제네릭을 사용해 어떤 타입에도 diff를 쉽게 추가할 수 있음 */

@@ -38,8 +38,8 @@ const calculateDiff = (
 
     return {
       cur_unit: today.cur_unit,
-      diff: diff.toFixed(1),
-      percentDiff: percentDiff.toFixed(1),
+      diff,
+      percentDiff,
     };
   });
 
@@ -87,7 +87,7 @@ interface ExchangeState {
   yesterdayLoaded: boolean;
   todayExchangeRates: ExchangeData[];
   yesterdayExchangeRates: ExchangeData[];
-  diffExchangeRates: ExchangeDiff[];
+  // diffExchangeRates: ExchangeDiff[];
   error: string | null;
 }
 
@@ -98,7 +98,7 @@ const initialState: ExchangeState = {
   yesterdayLoaded: false,
   todayExchangeRates: [],
   yesterdayExchangeRates: [],
-  diffExchangeRates: [],
+  // diffExchangeRates: [],
   error: null,
 };
 
@@ -124,12 +124,12 @@ export const exchangeSlice = createSlice({
         }
 
         // 두 날짜의 데이터가 모두 로드되었을 때 diff 계산
-        if (state.todayLoaded && state.yesterdayLoaded) {
-          state.diffExchangeRates = calculateDiff(
-            state.todayExchangeRates,
-            state.yesterdayExchangeRates
-          );
-        }
+        // if (state.todayLoaded && state.yesterdayLoaded) {
+        //   state.diffExchangeRates = calculateDiff(
+        //     state.todayExchangeRates,
+        //     state.yesterdayExchangeRates
+        //   );
+        // }
       })
       .addCase(fetchExchangeRates.rejected, (state, action) => {
         state.loaded = true;
@@ -145,15 +145,31 @@ export const selectTodayExchangeRates = (state: RootState) =>
   state.exchange.todayExchangeRates;
 export const selectYesterdayExchangeRates = (state: RootState) =>
   state.exchange.yesterdayExchangeRates;
-export const selectDiffExchangeRates = (state: RootState) =>
-  state.exchange.diffExchangeRates;
+// export const selectDiffExchangeRates = (state: RootState) =>
+//   state.exchange.diffExchangeRates;
+
+// selector를 통해 파생 데이터 계산
+export const selectDiffExchangeRates = createSelector(
+  [
+    (state: RootState) => state.exchange.todayExchangeRates,
+    (state: RootState) => state.exchange.yesterdayExchangeRates,
+  ],
+  (todayExchangeRates, yesterdayExchangeRates) => {
+    calculateDiff(todayExchangeRates, yesterdayExchangeRates);
+  }
+);
 
 // 오늘 환율 데이터 배열을 받아서 { [cur_unit]: deal_bas_r } 형태로 변환하는 선택자
 export const selectTodayDealBasRByCurrency = createSelector(
   [(state: RootState) => state.exchange.todayExchangeRates],
-  (todayRates): Record<string, number> =>
-    mapValues(keyBy(todayRates, "cur_unit"), (exchange: ExchangeData) =>
-      parseFloat(exchange.deal_bas_r.replace(/,/g, ""))
+  (todayExchangeRates): Record<ExchangeData["cur_unit"], number> =>
+    mapValues(
+      keyBy(todayExchangeRates, "cur_unit") as Record<
+        ExchangeData["cur_unit"],
+        ExchangeData
+      >,
+      (exchange: ExchangeData) =>
+        parseFloat(exchange.deal_bas_r.replace(/,/g, ""))
     )
 );
 
