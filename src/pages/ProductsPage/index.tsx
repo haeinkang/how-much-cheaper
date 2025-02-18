@@ -27,6 +27,7 @@ import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import { RootState } from "../../app/store";
 import useFinalPrice from "../../hooks/useFinalPrice";
 import DiffIndicator from "../../components/DiffIndicator";
+import PriceDisplay from "../../components/PriceDisplay";
 
 // 이미지 썸네일 매핑
 const thumbnails: Record<string, string> = {
@@ -53,15 +54,7 @@ const FinalPriceCell: React.FC<FinalPriceCellProps> = ({
 
   return (
     <TableCell>
-      <Grid
-        container
-        alignItems={"flex-end"}
-        gap={0.3}
-        sx={{ fontWeight: "500", fontSize: "1rem", whiteSpace: "nowrap" }}
-      >
-        {finalPrice.toLocaleString("ko-KR", { maximumFractionDigits: 0 })}
-        <Box sx={{ fontSize: "0.9rem" }}>원</Box>
-      </Grid>
+      <PriceDisplay price={finalPrice} />
       <DiffIndicator baseValue={finalPrice} compareValue={domesticPrice} />
     </TableCell>
   );
@@ -166,21 +159,11 @@ export default function ProductsPage() {
                         {row.brandName}
                       </Grid>
                       <Grid size={12}>{row.productName}</Grid>
-                      <Grid
+                      <PriceDisplay
                         size={12}
-                        container
-                        alignItems={"flex-end"}
-                        gap={0.3}
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "1rem",
-                          whiteSpace: "nowrap",
-                          mt: 0.7,
-                        }}
-                      >
-                        {row.domesticPrice.toLocaleString()}
-                        <Box sx={{ fontSize: "0.9rem" }}>원</Box>
-                      </Grid>
+                        price={row.domesticPrice}
+                        sx={{ mt: 0.7 }}
+                      />
                     </Grid>
                   </Box>
                 </TableCell>

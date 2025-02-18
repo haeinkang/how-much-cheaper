@@ -14,93 +14,9 @@ import DiffIndicator from "./DiffIndicator";
 import styled from "styled-components";
 import { Box } from "@mui/material";
 
-// styled-components로 스타일 분리
-
-const StyledCardContent = styled(CardContent)`
-  &:last-child {
-    padding-bottom: 16px;
-  }
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-areas:
-    "flag cur-name deal_bas_r"
-    "flag compare deal_bas_r";
-  grid-template-columns: auto 1fr;
-  gap: 0px 15px;
-
-  @media (max-width: 1500px) {
-    gap: 0px 5px;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "flag cur-name"
-      "deal_bas_r deal_bas_r"
-      "compare compare";
-  }
-`;
-
-const FlagBox = styled.div`
-  grid-area: flag;
-  font-size: 2rem;
-
-  @media (max-width: 1500px) {
-    font-size: 1.4rem;
-  }
-  @media (max-width: 768px) {
-    font-size: 1rem;
-  }
-`;
-
-const CurrencyNameWrapper = styled.div`
-  grid-area: cur-name;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-`;
-
-const CurNameBox = styled.div`
-  font-weight: bold;
-  font-size: 1rem;
-  white-space: nowrap;
-`;
-
-const CurUnitBox = styled.div`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.palette?.text?.secondary || "#666"};
-`;
-
 interface DealBasRBoxProps {
   diffColor: string;
 }
-
-const DealBasRBox = styled.div<DealBasRBoxProps>`
-  grid-area: deal_bas_r;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-right: 0.3rem;
-  color: ${(props) => props.diffColor};
-
-  @media (max-width: 1500px) {
-    justify-content: flex-start;
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
-`;
-
-const DealBasRValue = styled.span<DealBasRBoxProps>`
-  color: ${(props) => props.diffColor};
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-right: 0.3rem;
-
-  @media (max-width: 1500px) {
-    font-size: 1.3rem;
-  }
-`;
 
 function ExchangeSection() {
   // Redux 스토어에서 환율 데이터 가져오기
@@ -176,3 +92,85 @@ function ExchangeSection() {
 }
 
 export default ExchangeSection;
+
+const StyledCardContent = styled(CardContent)`
+  &:last-child {
+    padding-bottom: 16px;
+  }
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-areas:
+    "flag cur-name deal_bas_r"
+    "flag compare deal_bas_r";
+  grid-template-columns: auto 1fr;
+  gap: 0px 15px;
+
+  @media (max-width: 1500px) {
+    gap: 0px 5px;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "flag cur-name"
+      "deal_bas_r deal_bas_r"
+      "compare compare";
+  }
+`;
+
+const FlagBox = styled.div`
+  grid-area: flag;
+  font-size: 2rem;
+
+  @media (max-width: 1500px) {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const CurrencyNameWrapper = styled.div`
+  grid-area: cur-name;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
+
+const CurNameBox = styled.div`
+  font-weight: bold;
+  font-size: 1rem;
+  white-space: nowrap;
+`;
+
+const CurUnitBox = styled.div`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.palette?.text?.secondary || "#666"};
+`;
+
+const DealBasRBox = styled.div<DealBasRBoxProps>`
+  grid-area: deal_bas_r;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-right: 0.3rem;
+  color: ${(props) => props.diffColor};
+
+  @media (max-width: 1500px) {
+    justify-content: flex-start;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+`;
+
+const DealBasRValue = styled.span<DealBasRBoxProps>`
+  color: ${(props) => props.diffColor};
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 0.3rem;
+
+  @media (max-width: 1500px) {
+    font-size: 1.3rem;
+  }
+`;
