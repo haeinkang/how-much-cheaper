@@ -43,7 +43,11 @@ const DiffIndicator: React.FC<DiffIndicatorProps> = React.memo(
     return (
       <Grid {...restProps} container alignItems="center" flexWrap="nowrap">
         {diff !== 0 && <IconComponent color={iconColor} sx={{ p: 0, m: 0 }} />}
-        <Typography variant="body1" color={textColor}>
+        <Typography
+          variant="body1"
+          color={textColor}
+          sx={{ whiteSpace: "nowrap" }}
+        >
           {diff === 0 ? "0.00" : `${formattedDiff} (${formattedPercent}%)`}
         </Typography>
       </Grid>

@@ -1,38 +1,112 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
-  selectDiffExchangeRates,
   selectTodayExchangeRates,
   selectYesterdayExchangeRates,
-} from "../features/exchange-slice"; // 파일 경로에 맞게 수정
-import _ from "lodash";
+} from "../features/exchange-slice";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid2";
-import Box from "@mui/material/Box";
-import Hidden from "@mui/material/Hidden";
 import { ExchangeData } from "../types/exchange";
-import { styled as MuiStyled } from "@mui/material/styles";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import find from "lodash/find";
 import DiffIndicator from "./DiffIndicator";
+import styled from "styled-components";
+import { Box } from "@mui/material";
 
-const CardContentNoPadding = MuiStyled(CardContent)(`
+// styled-components로 스타일 분리
+
+const StyledCardContent = styled(CardContent)`
   &:last-child {
     padding-bottom: 16px;
   }
-`);
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-areas:
+    "flag cur-name deal_bas_r"
+    "flag compare deal_bas_r";
+  grid-template-columns: auto 1fr;
+  gap: 0px 15px;
+
+  @media (max-width: 1500px) {
+    gap: 0px 5px;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "flag cur-name"
+      "deal_bas_r deal_bas_r"
+      "compare compare";
+  }
+`;
+
+const FlagBox = styled.div`
+  grid-area: flag;
+  font-size: 2rem;
+
+  @media (max-width: 1500px) {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const CurrencyNameWrapper = styled.div`
+  grid-area: cur-name;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
+
+const CurNameBox = styled.div`
+  font-weight: bold;
+  font-size: 1rem;
+  white-space: nowrap;
+`;
+
+const CurUnitBox = styled.div`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.palette?.text?.secondary || "#666"};
+`;
+
+interface DealBasRBoxProps {
+  diffColor: string;
+}
+
+const DealBasRBox = styled.div<DealBasRBoxProps>`
+  grid-area: deal_bas_r;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-right: 0.3rem;
+  color: ${(props) => props.diffColor};
+
+  @media (max-width: 1500px) {
+    justify-content: flex-start;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+`;
+
+const DealBasRValue = styled.span<DealBasRBoxProps>`
+  color: ${(props) => props.diffColor};
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 0.3rem;
+
+  @media (max-width: 1500px) {
+    font-size: 1.3rem;
+  }
+`;
 
 function ExchangeSection() {
   // Redux 스토어에서 환율 데이터 가져오기
   const todayExchangeRates = useSelector(selectTodayExchangeRates);
   const yesterdayExchangeRates = useSelector(selectYesterdayExchangeRates);
-  const diffExchangeRates = useSelector(selectDiffExchangeRates);
-
-  const below1500px = useMediaQuery("(max-width:1500px)");
+  const over1500px = useMediaQuery("(min-width:1500px)");
 
   // 통화 단위에 따른 국기 이모지 반환
   const getFlag = (cur_unit: string) => {
@@ -56,161 +130,43 @@ function ExchangeSection() {
         const yesterday = yesterdayExchangeRates.find(
           ({ cur_unit }) => o.cur_unit === cur_unit
         );
+        // diff 계산 (데이터가 없으면 0 처리)
         const diff = yesterday
           ? parseFloat(o.deal_bas_r) - parseFloat(yesterday.deal_bas_r)
           : 0;
+        // 색상 선택: 기준에 따라 색상 결정
+        const diffColor =
+          diff > 0 ? "error.main" : diff < 0 ? "primary.main" : "disabled.main";
+
         return (
           <Grid size={{ xs: 6, sm: 6, md: 3, lg: 3, xl: 3 }} key={o.cur_unit}>
             <Card sx={{ height: "100%" }}>
-              <CardContentNoPadding>
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateAreas: `
-                    "flag cur-name deal_bas_r"
-                    "flag compare deal_bas_r"
-                  `,
-                    gridTemplateColumns: "auto 1fr",
-                    gap: "0px 15px",
-                    "@media (max-width: 1500px)": {
-                      gap: "0px 5px",
-                      gridTemplateColumns: "auto 1fr",
-                      gridTemplateAreas: `
-                      "flag cur-name"
-                      "deal_bas_r deal_bas_r"
-                      "compare compare"
-                    `,
-                    },
-                  }}
-                >
-                  <Box
-                    className="flag"
-                    sx={{
-                      gridArea: "flag",
-                      fontSize: "2rem",
-                      "@media (max-width: 1500px)": {
-                        fontSize: "1.4rem",
-                      },
-                      "@media (max-width: 768px)": {
-                        fontSize: "1rem",
-                      },
-                    }}
-                  >
-                    {getFlag(o.cur_unit)}
-                  </Box>
+              <StyledCardContent>
+                <GridContainer>
+                  <FlagBox className="flag">{getFlag(o.cur_unit)}</FlagBox>
 
-                  <Grid
-                    className="cur-name"
-                    container
-                    alignItems={"center"}
-                    flexWrap={"nowrap"}
-                    gap={0.8}
-                    sx={{ gridArea: "cur-name" }}
-                  >
-                    <Box
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: "1rem",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {o.cur_nm}
-                    </Box>
-                    {!below1500px && (
-                      <Box
-                        sx={{ fontSize: "0.875rem", color: "text.secondary" }}
-                      >
-                        {o.cur_unit}
-                      </Box>
-                    )}
-                  </Grid>
+                  <CurrencyNameWrapper className="cur-name">
+                    <CurNameBox>{o.cur_nm}</CurNameBox>
+                    {over1500px && <CurUnitBox>{o.cur_unit}</CurUnitBox>}
+                  </CurrencyNameWrapper>
 
                   {yesterday && (
                     <DiffIndicator
                       className="compare"
+                      style={{ gridArea: "compare" }}
                       baseValue={parseFloat(o.deal_bas_r)}
                       compareValue={parseFloat(yesterday.deal_bas_r)}
                     />
                   )}
 
-                  {/* <Grid
-                    className="compare"
-                    container
-                    alignItems={"center"}
-                    flexWrap={"nowrap"}
-                    sx={{ gridArea: "compare" }}
-                  >
-                    {parseFloat(diff) > 0 ? (
-                      <ArrowDropUpIcon color={"warning"} sx={{ p: 0, m: 0 }} />
-                    ) : parseFloat(diff) < 0 ? (
-                      <ArrowDropDownIcon
-                        color={"primary"}
-                        sx={{ p: 0, m: 0 }}
-                      />
-                    ) : null}
-
-                    <Typography
-                      variant="body1"
-                      color={
-                        parseFloat(diff) > 0
-                          ? "error"
-                          : parseFloat(diff) < 0
-                            ? "primary"
-                            : "text.secondary"
-                      }
-                    >
-                      {`${diff.replace("-", "")}(${percentDiff}%)`}
-                    </Typography>
-                  </Grid> */}
-
-                  <Box
-                    className="deal_bas_r"
-                    sx={{
-                      gridArea: "deal_bas_r",
-                      color:
-                        diff > 0
-                          ? "error.main"
-                          : diff < 0
-                            ? "primary.main"
-                            : "disabled.main",
-                      fontSize: "1.1rem",
-                      fontWeight: 500,
-                      fontStyle: "normal",
-                      mr: 0.3,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-end",
-                      "@media (max-width: 1500px)": {
-                        justifyContent: "flex-start",
-                        fontSize: "1rem",
-                        mt: 1,
-                      },
-                    }}
-                  >
-                    <Box
-                      component={"span"}
-                      sx={{
-                        color:
-                          diff > 0
-                            ? "error.main"
-                            : diff < 0
-                              ? "primary.main"
-                              : "disabled.main",
-                        fontSize: "1.5rem",
-                        fontWeight: 600,
-                        fontStyle: "normal",
-                        mr: 0.3,
-                        "@media (max-width: 1500px)": {
-                          fontSize: "1.3rem",
-                        },
-                      }}
-                    >
+                  <DealBasRBox className="deal_bas_r" diffColor={diffColor}>
+                    <DealBasRValue diffColor={diffColor}>
                       {o.deal_bas_r}
-                    </Box>
+                    </DealBasRValue>
                     원
-                  </Box>
-                </Box>
-              </CardContentNoPadding>
+                  </DealBasRBox>
+                </GridContainer>
+              </StyledCardContent>
             </Card>
           </Grid>
         );
