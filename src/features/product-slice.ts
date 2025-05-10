@@ -30,6 +30,8 @@ interface ProductState {
   products: Product[]; // 상품 목록
   productDetail: Product | null; // 선택된 상품의 상세 정보
   searchResults: Product[]; // 검색 결과 (필요시 사용)
+  applyTaxRefund: boolean;
+  applyDuty: boolean;
   loaded: boolean; // 로딩 상태
   error: null; // 에러 메시지
 }
@@ -41,6 +43,8 @@ const initialState: ProductState = {
   products: [], // 상품 목록
   productDetail: null, // 선택된 상품의 상세 정보
   searchResults: [], // 검색 결과 (필요시 사용)
+  applyTaxRefund: true,
+  applyDuty: true,
   loaded: false, // 로딩 상태
   error: null, // 에러 메시지
 };
@@ -48,7 +52,16 @@ const initialState: ProductState = {
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    // applyTaxRefund 값을 토글하는 액션
+    toggleTaxRefund: (state) => {
+      state.applyTaxRefund = !state.applyTaxRefund;
+    },
+    // applyDuty 값을 토글하는 액션
+    toggleDuty: (state) => {
+      state.applyDuty = !state.applyDuty;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -64,7 +77,7 @@ export const productSlice = createSlice({
   },
 });
 
-export const {} = productSlice.actions;
+export const { toggleTaxRefund, toggleDuty } = productSlice.actions;
 
 // 상태 선택자 예제
 export const selectProducts = (state: RootState) => state.products.products;

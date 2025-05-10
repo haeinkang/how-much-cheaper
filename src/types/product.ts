@@ -1,4 +1,5 @@
 import { brands, categories } from "../constants/staticData";
+import { ExchangeData } from "./exchange";
 
 // 브랜드 정보
 export type BrandList = typeof brands;
@@ -16,7 +17,7 @@ export type SubCategoryName = SubCategory["name"];
 export type Price = {
   country: string; // 국가명
   localPrice: number; // 해당 국가 가격
-  currency: string; // 통화
+  cur_unit: ExchangeData["cur_unit"]; // 통화
   currencySymbol: string; // 통화 기호
 };
 
